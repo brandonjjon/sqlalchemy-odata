@@ -762,6 +762,40 @@ def test_dialect_get_schema_names():
     assert dialect.get_schema_names(connection) == ["main"]
 
 
+def test_dialect_get_pk_constraint():
+    from unittest.mock import MagicMock
+
+    from shillelagh_odata.dialect import APSWODataDialect
+
+    dialect = APSWODataDialect.__new__(APSWODataDialect)
+    connection = MagicMock()
+
+    result = dialect.get_pk_constraint(connection, "Products")
+    assert result == {"constrained_columns": [], "name": None}
+
+
+def test_dialect_get_foreign_keys():
+    from unittest.mock import MagicMock
+
+    from shillelagh_odata.dialect import APSWODataDialect
+
+    dialect = APSWODataDialect.__new__(APSWODataDialect)
+    connection = MagicMock()
+
+    assert dialect.get_foreign_keys(connection, "Products") == []
+
+
+def test_dialect_get_indexes():
+    from unittest.mock import MagicMock
+
+    from shillelagh_odata.dialect import APSWODataDialect
+
+    dialect = APSWODataDialect.__new__(APSWODataDialect)
+    connection = MagicMock()
+
+    assert dialect.get_indexes(connection, "Products") == []
+
+
 def test_engine_spec_attributes():
     from shillelagh_odata.engine_spec import ODataEngineSpec
 
