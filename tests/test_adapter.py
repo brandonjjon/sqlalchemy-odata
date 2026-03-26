@@ -667,6 +667,99 @@ def test_dialect_create_connect_args():
     assert adapter_kwargs["odataapi"]["password"] == "mypass"
 
 
+@responses.activate
+def test_dialect_get_columns():
+    from unittest.mock import MagicMock
+
+    from sqlalchemy.engine.url import make_url
+
+    from shillelagh_odata.dialect import APSWODataDialect
+
+    responses.add(
+        responses.GET,
+        "https://api.example.com/odata/$metadata",
+        body=SAMPLE_METADATA,
+        content_type="application/xml",
+    )
+
+    dialect = APSWODataDialect.__new__(APSWODataDialect)
+    connection = MagicMock()
+    connection.engine.url = make_url("odata://user:pass@api.example.com/odata")
+
+    columns = dialect.get_columns(connection, "products")
+    col_names = [c["name"] for c in columns]
+    assert "ProductId" in col_names
+    assert "Name" in col_names
+    assert "Price" in col_names
+    assert "InStock" in col_names
+    assert "CreatedAt" in col_names
+    assert len(columns) == 5
+    assert all(c["nullable"] is True for c in columns)
+
+
+@responses.activate
+def test_dialect_get_columns_not_found():
+    from unittest.mock import MagicMock
+
+    from sqlalchemy.engine.url import make_url
+
+    from shillelagh_odata.dialect import APSWODataDialect
+
+    responses.add(
+        responses.GET,
+        "https://api.example.com/odata/$metadata",
+        body=SAMPLE_METADATA,
+        content_type="application/xml",
+    )
+
+    dialect = APSWODataDialect.__new__(APSWODataDialect)
+    connection = MagicMock()
+    connection.engine.url = make_url("odata://user:pass@api.example.com/odata")
+
+    columns = dialect.get_columns(connection, "nonexistent")
+    assert columns == []
+
+
+@responses.activate
+def test_dialect_has_table():
+    from unittest.mock import MagicMock
+
+    from sqlalchemy.engine.url import make_url
+
+    from shillelagh_odata.dialect import APSWODataDialect
+
+    responses.add(
+        responses.GET,
+        "https://api.example.com/odata/$metadata",
+        body=SAMPLE_METADATA,
+        content_type="application/xml",
+    )
+    responses.add(
+        responses.GET,
+        "https://api.example.com/odata/$metadata",
+        body=SAMPLE_METADATA,
+        content_type="application/xml",
+    )
+
+    dialect = APSWODataDialect.__new__(APSWODataDialect)
+    connection = MagicMock()
+    connection.engine.url = make_url("odata://user:pass@api.example.com/odata")
+
+    assert dialect.has_table(connection, "products") is True
+    assert dialect.has_table(connection, "nonexistent") is False
+
+
+def test_dialect_get_schema_names():
+    from unittest.mock import MagicMock
+
+    from shillelagh_odata.dialect import APSWODataDialect
+
+    dialect = APSWODataDialect.__new__(APSWODataDialect)
+    connection = MagicMock()
+
+    assert dialect.get_schema_names(connection) == ["main"]
+
+
 def test_engine_spec_attributes():
     from shillelagh_odata.engine_spec import ODataEngineSpec
 
