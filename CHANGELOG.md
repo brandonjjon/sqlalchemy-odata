@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.0](https://github.com/brandonjjon/sqlalchemy-odata/compare/v0.1.0...v0.2.0) (2026-03-26)
+
+
+### Features
+
+* add schema introspection to dialect ([7389204](https://github.com/brandonjjon/sqlalchemy-odata/commit/7389204a66537489cfb77334ff30b0df32715d93))
+
+
+### Bug Fixes
+
+* set adapter safe=True to work with Shillelagh's adapter loading ([e7377af](https://github.com/brandonjjon/sqlalchemy-odata/commit/e7377afa1f5c13cfcb4731f670079f41ce06eacf))
+
 ## 0.1.0 — Initial release
 
 - Shillelagh adapter for OData v4 services
