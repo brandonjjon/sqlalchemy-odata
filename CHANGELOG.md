@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/brandonjjon/sqlalchemy-odata/compare/v0.2.0...v0.2.1) (2026-03-26)
+
+
+### Bug Fixes
+
+* use application/xml Accept header for $metadata requests ([7b5cd74](https://github.com/brandonjjon/sqlalchemy-odata/commit/7b5cd745655614cdbdad365d4028e0caa0a8d7e6))
+
 ## [0.2.0](https://github.com/brandonjjon/sqlalchemy-odata/compare/v0.1.0...v0.2.0) (2026-03-26)
 
 
