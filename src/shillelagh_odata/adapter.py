@@ -260,7 +260,9 @@ class ODataAdapter(Adapter):
         meta_url = f"{self._service_url}/$metadata"
         safe_url = _sanitize_url(meta_url)
         try:
-            resp = self._session.get(meta_url, timeout=30)
+            resp = self._session.get(
+                meta_url, timeout=30, headers={"Accept": "application/xml"}
+            )
             resp.raise_for_status()
         except requests.RequestException as exc:
             raise RuntimeError(
