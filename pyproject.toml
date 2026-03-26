@@ -63,6 +63,10 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+markers = [
+    "integration: tests that require network access to external OData services",
+]
+addopts = "-m 'not integration'"
 
 [tool.ruff]
 target-version = "py39"

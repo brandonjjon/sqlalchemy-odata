@@ -2,6 +2,7 @@
 
 from datetime import datetime, timezone
 
+import pytest
 import responses
 
 from shillelagh_odata.adapter import (
@@ -767,3 +768,50 @@ def test_engine_spec_attributes():
     assert ODataEngineSpec.engine_name == "OData"
     assert ODataEngineSpec.allows_joins is True
     assert ODataEngineSpec.allows_subqueries is True
+
+
+# ---------------------------------------------------------------------------
+# Integration tests (require network access, skipped by default)
+# ---------------------------------------------------------------------------
+
+NORTHWIND_URL = "odata://services.odata.org/V4/Northwind/Northwind.svc"
+
+
+@pytest.mark.integration
+def test_northwind_table_discovery():
+    from sqlalchemy import create_engine, inspect
+
+    engine = create_engine(NORTHWIND_URL)
+    inspector = inspect(engine)
+    tables = inspector.get_table_names()
+    assert len(tables) > 0
+    assert "Products" in tables
+    assert "Orders" in tables
+    assert "Customers" in tables
+
+
+@pytest.mark.integration
+def test_northwind_get_columns():
+    from sqlalchemy import create_engine, inspect
+
+    engine = create_engine(NORTHWIND_URL)
+    inspector = inspect(engine)
+    columns = inspector.get_columns("Products")
+    col_names = [c["name"] for c in columns]
+    assert "ProductID" in col_names
+    assert "ProductName" in col_names
+    assert "UnitPrice" in col_names
+
+
+@pytest.mark.integration
+def test_northwind_query():
+    from sqlalchemy import create_engine, text
+
+    engine = create_engine(NORTHWIND_URL)
+    with engine.connect() as conn:
+        result = conn.execute(
+            text("SELECT ProductName, UnitPrice FROM Products LIMIT 5")
+        )
+        rows = result.fetchall()
+        assert len(rows) == 5
+        assert all(row[0] is not None for row in rows)
