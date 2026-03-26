@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.3](https://github.com/brandonjjon/sqlalchemy-odata/compare/v0.2.2...v0.2.3) (2026-03-26)
+
+
+### Bug Fixes
+
+* override get_pk_constraint, get_foreign_keys, get_indexes ([6c61876](https://github.com/brandonjjon/sqlalchemy-odata/commit/6c618769a18de6baf1b91f8dca0fc7752cab438b))
+
 ## [0.2.2](https://github.com/brandonjjon/sqlalchemy-odata/compare/v0.2.1...v0.2.2) (2026-03-26)
 
 
