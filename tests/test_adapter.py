@@ -215,8 +215,8 @@ def test_adapter_parse_uri():
     assert ODataAdapter.parse_uri("incidents") == ("incidents",)
 
 
-def test_adapter_safe_is_false():
-    assert ODataAdapter.safe is False
+def test_adapter_safe_is_true():
+    assert ODataAdapter.safe is True
 
 
 # ---------------------------------------------------------------------------

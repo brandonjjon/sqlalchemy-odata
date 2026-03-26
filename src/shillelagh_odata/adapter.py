@@ -203,7 +203,7 @@ class ODataAdapter(Adapter):
     ``__init__()`` is the OData entity set name (e.g. ``incidents``).
     """
 
-    safe = False
+    safe = True
     supports_limit = False
     supports_offset = False
     supports_requested_columns = False
