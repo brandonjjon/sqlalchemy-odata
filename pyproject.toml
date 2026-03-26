@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sqlalchemy-odata"
+version = "0.1.0"
+description = "SQLAlchemy dialect and Shillelagh adapter for OData v4 — query OData APIs with SQL in Apache Superset"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+keywords = ["odata", "sqlalchemy", "shillelagh", "superset", "sql", "api", "odata-v4", "connector", "rest-api", "business-intelligence", "data-integration"]
+authors = [
+    {name = "Brandon Jones"},
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Database",
+    "Topic :: Database :: Front-Ends",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "shillelagh>=1.2.0,<3.0",
+    "requests>=2.28.0",
+]
+
+[project.optional-dependencies]
+superset = [
+    "apache-superset>=3.0.0",
+]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "responses>=0.23.0",
+    "ruff>=0.4.0",
+    "build>=1.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/brandonjjon/sqlalchemy-odata"
+Repository = "https://github.com/brandonjjon/sqlalchemy-odata"
+Issues = "https://github.com/brandonjjon/sqlalchemy-odata/issues"
+Changelog = "https://github.com/brandonjjon/sqlalchemy-odata/blob/main/CHANGELOG.md"
+
+[project.entry-points."shillelagh.adapter"]
+odataapi = "shillelagh_odata.adapter:ODataAdapter"
+
+[project.entry-points."sqlalchemy.dialects"]
+odata = "shillelagh_odata.dialect:APSWODataDialect"
+
+[project.entry-points."superset.db_engine_specs"]
+odata = "shillelagh_odata.engine_spec:ODataEngineSpec"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP"]
+
+[tool.ruff.format]
+quote-style = "double"
