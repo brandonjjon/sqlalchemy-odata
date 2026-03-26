@@ -153,6 +153,40 @@ class APSWODataDialect(APSWDialect):
             )
         return columns
 
+    def get_pk_constraint(
+        self,
+        connection: Any,
+        table_name: str,
+        schema: str | None = None,
+        **kwargs: Any,
+    ) -> dict[str, Any]:
+        """Return an empty primary key constraint.
+
+        OData entity sets don't expose primary key info through $metadata
+        in a way that maps to SQL constraints.
+        """
+        return {"constrained_columns": [], "name": None}
+
+    def get_foreign_keys(
+        self,
+        connection: Any,
+        table_name: str,
+        schema: str | None = None,
+        **kwargs: Any,
+    ) -> list[dict[str, Any]]:
+        """Return an empty list — OData navigation properties are not mapped."""
+        return []
+
+    def get_indexes(
+        self,
+        connection: Any,
+        table_name: str,
+        schema: str | None = None,
+        **kwargs: Any,
+    ) -> list[dict[str, Any]]:
+        """Return an empty list — OData has no concept of indexes."""
+        return []
+
     def has_table(
         self,
         connection: Any,
