@@ -138,7 +138,7 @@ class APSWODataDialect(APSWDialect):
 
         _type_fqn, properties = result
         columns = []
-        for prop_name, edm_type in properties.items():
+        for i, (prop_name, edm_type) in enumerate(properties.items()):
             if edm_type.startswith("Collection("):
                 edm_type = "Edm.String"
             sa_type = EDM_TO_SA.get(edm_type, sa_types.Text())
@@ -148,6 +148,7 @@ class APSWODataDialect(APSWDialect):
                     "type": sa_type,
                     "nullable": True,
                     "default": None,
+                    "ordinal_position": i,
                 }
             )
         return columns
