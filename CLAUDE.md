@@ -4,7 +4,7 @@ SQLAlchemy dialect + Shillelagh adapter for querying OData v4 APIs with SQL.
 
 ## Commit conventions
 
-All commits must use [Conventional Commits](https://www.conventionalcommits.org/) format. PR titles must also follow this format (enforced by CI).
+All commits must use [Conventional Commits](https://www.conventionalcommits.org/) format. PRs are merged via rebase, so individual commit messages drive releases (PR titles are not enforced).
 
 - `feat: ...` — new feature (minor version bump)
 - `fix: ...` — bug fix (patch version bump)
