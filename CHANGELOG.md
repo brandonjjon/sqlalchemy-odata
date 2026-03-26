@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/brandonjjon/sqlalchemy-odata/compare/v0.2.1...v0.2.2) (2026-03-26)
+
+
+### Bug Fixes
+
+* add ordinal_position to get_columns to fix Superset sorting ([79bf42a](https://github.com/brandonjjon/sqlalchemy-odata/commit/79bf42a940b3547ed4b93c8b83c87377b91b4e80))
+
 ## [0.2.1](https://github.com/brandonjjon/sqlalchemy-odata/compare/v0.2.0...v0.2.1) (2026-03-26)
 
 
