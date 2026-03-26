@@ -696,6 +696,7 @@ def test_dialect_get_columns():
     assert "CreatedAt" in col_names
     assert len(columns) == 5
     assert all(c["nullable"] is True for c in columns)
+    assert [c["ordinal_position"] for c in columns] == [0, 1, 2, 3, 4]
 
 
 @responses.activate
