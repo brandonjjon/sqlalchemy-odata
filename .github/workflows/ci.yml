@@ -15,7 +15,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: "3.14"
+          python-version: "3.15"
 
       - name: Install dependencies
         run: pip install -e ".[dev]"
@@ -55,7 +55,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: "3.14"
+          python-version: "3.15"
 
       - name: Install dependencies
         run: pip install -e ".[dev]"
@@ -71,7 +71,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: "3.14"
+          python-version: "3.15"
 
       - name: Install build tools
         run: pip install build
